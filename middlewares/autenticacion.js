@@ -21,7 +21,7 @@ exports.verificaToken = function(req, res, next) {
             });
         }
 
-        //agregamos el usuario que ejecuto la ccion en el request
+        //agregamos el usuario que ejecuto la accion en el request
         req.usuario = decoded.usuario;
 
 

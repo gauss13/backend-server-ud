@@ -22,7 +22,14 @@ app.get('/', (req, res, next) => {
     // para evitar que regrese el campo password en la consulta
     // le indicamos que campos queremos mostrar
     // y agregamos la fucion exec
+
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
+
+
     Usuario.find({}, 'nombre email img role')
+        .skip(desde)
+        .limit(5)
         .exec(
             (err, usuarios) => {
 
@@ -35,11 +42,17 @@ app.get('/', (req, res, next) => {
                     });
                 }
 
-                // si no hubo error
-                res.status(200).json({
-                    ok: true,
-                    usuarios: usuarios
+                Usuario.count({}, (err, conteo) => {
+                    // si no hubo error
+                    res.status(200).json({
+                        ok: true,
+                        total: conteo,
+                        usuarios: usuarios
+
+                    });
                 });
+
+
 
             });
 });

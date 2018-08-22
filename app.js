@@ -24,6 +24,16 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 });
 
 
+// Server index config - opcional - para desplegar las imagenes
+// sirve para mostrar un buscado de imagens o archivos
+// aunque por seguridad no se deberia poder acceder a dichos archivos
+// var serveIndex = require('serve-index');
+// app.use(express.static(__dirname + '/'))
+// app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
+
+
+
 // Rutas
 
 // app.get('/', (req, res, next) => {
@@ -37,11 +47,23 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
 var loginRoute = require('./routes/login');
+var hospitalRoute = require('./routes/hospital');
+var medicoRoute = require('./routes/medico');
+var busquedaRoute = require('./routes/busqueda');
+var uploadRoute = require('./routes/upload');
+var imagenesRoute = require('./routes/imagenes');
 
 //midleware
 app.use('/usuario', usuarioRoutes);
 app.use('/login', loginRoute);
+app.use('/hospital', hospitalRoute);
+app.use('/medico', medicoRoute);
+app.use('/busqueda', busquedaRoute);
+app.use('/upload', uploadRoute);
+app.use('/img', imagenesRoute);
+//este debe ser la ultima ruta
 app.use('/', appRoutes);
+
 
 
 
